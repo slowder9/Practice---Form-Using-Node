@@ -10,6 +10,10 @@ const server = express(); // setup the express server
 //   { name: 'Glaze', cake: 'vanilla', topping: 'jelly' },
 // ];
 
+let pink = [
+{name: 'mike', email: 'flkdj', birth: '12', position: 'technical', password: 'butts'}
+]
+
 // Configure express to use mustache and set some reasonable defaults.
 server.engine('mustache', mustache());
 server.set('views', './templates');     // where to look for templates
@@ -21,10 +25,27 @@ server.use(bodyparser.urlencoded({ extended: false }));
 server.get('/', function (req, res) {
   // Load the index Mustache template and populate it with values
   // from the object.
-  res.render('form')
+  res.render('form', {
+    options: pink
+  })
   });
 
 server.post('/new', function (req, res) {
+  if (
+    (req.body.name.length > 0 && req.body.name.length < 100) && 
+    (req.body.name.email > 0 && req.body.email.length < 100) &&
+    (req.body.birth.length > 1900 && req.body.birth.length < 2017) &&
+    (req.body.position === "technical_manager") && (req.body.position === "developer") && (req.body.position === "ui_designer") && (req.body.position === "graphic_designer")
+    (req.body.password.length < 8)){
+
+  pink.push({
+  name: req.body.name,
+  email: req.body.email, 
+  birth: req.body.birth, 
+  position: req.body.position, 
+  password: req.body.password
+})}
+
   // Validation
   // if (
   //   req.body.name.length > 0 &&
@@ -42,10 +63,20 @@ server.post('/new', function (req, res) {
 
   // re-render the form
   res.render('form', {
-    // options: donuts,
-    success: true,
+    options: pink,
+    // success: true,
   });
-});
+  });
+
+//   function validateForm() {
+//     let x = document.form["myForm"]["name"].value;
+//     if (x === "") {
+//         alert("Name must be filled out");
+//         return false;
+//     }
+// }
+
+// });
 
 // TODO: Receive form info
 server.listen(3003, function () { // 1024 and below are off limits

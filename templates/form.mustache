@@ -9,7 +9,7 @@
     <h1>NEW USER</h1>
     {{ /success }}
     <h2>Sign Up</h2>
-    <form method="post" action="/new">
+    <form method="post" action="/new" name="myForm">
         <label for="form_name">Name:</label>
         <input type="text" id="form_name" name="name">
     <br>
@@ -32,14 +32,14 @@
     <br>
         <input type="submit" value="Go">
     </form>
-<!-- <ul>
+<ul>
     {{ #options }}
         <li>
             <h3>{{ name }}</h3>
-            <p>Cake: {{ cake }}, Topping: {{ topping }}</p>
+            <p>Cake: {{ email }}, Topping: {{ birth }}</p>
         </li>
     {{ /options }}
-</ul> -->
+</ul>
 </body>
 
 </html>
